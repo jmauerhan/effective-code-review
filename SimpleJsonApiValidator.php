@@ -15,21 +15,18 @@ class SimpleJsonApiValidator implements JsonValidator
            throw new Exception();
        }
        if (property_exists($object, 'data') === false) {
-           throw new InvalidJsonException();
+           throw new InvalidJsonException('Missing data property');
        }
        $data = $object->data;
        if (property_exists($data, 'type') === false) {
-           throw new InvalidJsonApiException();
+           throw new InvalidJsonApiException('Missing data->type property');
        }
        if (property_exists($data, 'id') === false) {
-           throw new InvalidJsonApiException();
+           throw new InvalidJsonApiException('Missing data->id property');
        }
        if (property_exists($data, 'attributes') === false) {
-           throw new InvalidJsonApiException();
+           throw new InvalidJsonApiException('Missing data->attributes property');
        }
-      //if( property_exists($data, 'error') === false) {
-      //    throw new InvalidJsonApiException();
-      //}
        return true;
    }
 }
