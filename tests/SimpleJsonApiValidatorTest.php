@@ -11,6 +11,24 @@ class SimpleJsonApiValidatorTest extends TestCase
        $validator->validate($json);
    }
 
+   public function invalidJsonProvider()
+   {
+       return [
+           'missingData' => ['{"someJson":"myText"}'],
+           'missingType' => ['{"data":{}}']
+       ];
+   }
+
+   /**
+    * @dataProvider invalidJsonProvider
+    */
+   public function testValidateThrowsExceptionWhenSchemaInvalid(string $json)
+   {
+       $this->expectException(InvalidJsonApiException::class);
+       $validator = new SimpleJsonApiValidator();
+       $validator->validate($json);
+   }
+
    public function testValidateReturnsTrueWhenJsonValid()
    {
        $data = (object)[
@@ -26,4 +44,3 @@ class SimpleJsonApiValidatorTest extends TestCase
        self::assertTrue($validator->validate($json));
    }
 }
-
